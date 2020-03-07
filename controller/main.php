@@ -10,6 +10,10 @@ try {
         insertUser($conn);
     }
 
+    if (isset($_POST['order_status'])) {
+        changeStatus($conn);
+    }
+
     $customers = getCustomers($conn);
 
 } catch (SQLExecption $error) {

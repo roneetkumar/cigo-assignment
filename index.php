@@ -1,8 +1,6 @@
-<?php
+<?php require_once dirname(__FILE__) . '\controller\main.php';?>
 
-require_once dirname(__FILE__) . '\controller\main.php';
-
-echo '<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -18,6 +16,8 @@ echo '<!DOCTYPE html>
     <body>
         <div class="col">
             <div class="container col">
+            <h4>Add An Order</h4>
+            <hr>
                 <form method="POST" action="controller/main.php">
                     <div class="form-row">
                         <div class="col-md-6">
@@ -118,7 +118,7 @@ echo '<!DOCTYPE html>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Country</label>
-                            <select class="form-control form-control" name="country">
+                            <select class="form-control" name="country">
                                 <option>Canada</option>
                                 <option>US</option>
                                 <option>Mexico</option>
@@ -138,13 +138,54 @@ echo '<!DOCTYPE html>
                 </div>
             </form>
         </div>
-        <div class="container row">';
+        <div class="container row">
 
-foreach ($customers as $key => $value) {
-    echo $value->getEmail() . "</br>";
-}
+         <table class="table">
+                <h4>Existing Orders</h4>
+                <thead>
+                    <tr>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Date</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php foreach ($customers as $key => $value) {
+    $fname = $value->getFname();
+    $lname = $value->getLname();
+    $date = explode(" ", $value->getOrder()->getDate())[0];
+    $status = $value->getOrder()->getStatus();
+    $email = $value->getEmail();
 
-echo '</div>
+    $allStatus = ['PENDING', 'ASSIGNED', 'ON-ROUTE', 'DONE', 'CANCELLED'];
+    ?>
+        <tr>
+            <td> <?php echo $fname ?> </td>
+            <td> <?php echo $lname ?> </td>
+            <td> <?php echo $date ?></td>
+            <td>
+                <form method="POST" action="controller/main.php">
+                    <input type="hidden" name="email" value= <?php echo $email ?>>
+                    <select class="form-control" name="order_status" onchange="this.form.submit();">
+
+
+                        <?php foreach ($allStatus as $value) {?>
+                            <option value=<?php echo $value ?> <?php if ($status == $value) {echo "selected";}?> > <?php echo $value ?></option>
+                        <?php }?>
+
+
+                    </select>
+                </form>
+            </td>
+            <td><button>cancel</button></td>
+        </tr>
+<?php }?>
+
+</tbody>
+            </table>
+        </div>
     </div>
     <div class="col">
         <div class="container row">
@@ -152,4 +193,4 @@ echo '</div>
     </div>
 </body>
 
-</html>';
+</html>

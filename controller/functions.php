@@ -24,6 +24,7 @@ function insertUser($conn)
     $customer->setOrder(new Order($type, $value));
 
     $ordered = $customer->insertOneOrder($conn);
+
     header("Location: ../index.php");
 
     // if ($ordered) {
@@ -46,32 +47,31 @@ function getCustomers($conn)
     $users = $prepare->fetchAll();
 
     if (sizeof($users) > 0) {
-        foreach ($users as $key => $value) {
-            $fname = $value['FirstName'];
-            $lname = $value['LastName'];
-            $email = $value['Email'];
-            $phone = $value['Phone'];
-            $street = $value['Street'];
-            $city = $value['City'];
-            $state = $value['State'];
-            $postal = $value['Postal'];
-            $country = $value['Country'];
+        for ($i = 0; $i < count($users); $i++) {
+            # code...
+            $fname = $users[$i]['FirstName'];
+            $lname = $users[$i]['LastName'];
+            $email = $users[$i]['Email'];
+            $phone = $users[$i]['Phone'];
+            $street = $users[$i]['Street'];
+            $city = $users[$i]['City'];
+            $state = $users[$i]['State'];
+            $postal = $users[$i]['Postal'];
+            $country = $users[$i]['Country'];
 
-            $type = $value['OrderType'];
-            $value = $value['OrderValue'];
-            // $date = $value['Date'];
-            // $status = $value['Status'];
+            $type = $users[$i]['OrderType'];
+            $value = $users[$i]['OrderValue'];
+
+            $date = $users[$i]['OrderDate'];
+            $status = $users[$i]['OrderStatus'];
 
             $customer = new Customer($fname, $lname, $email, $phone, $street, $city, $state, $postal, $country);
 
-            $order = new Order($type, $value);
-
-            // $order->setDate($date);
-            // $order->setStatus($status);
+            $order = new Order($type, $value, $date, $status);
 
             $customer->setOrder($order);
 
-            $customers[$key] = $customer;
+            $customers[$i] = $customer;
 
         }
     } else {
@@ -79,6 +79,19 @@ function getCustomers($conn)
     }
 
     return $customers;
+}
+
+function changeStatus($conn)
+{
+    $email = $_POST['email'];
+    $order_status = $_POST['order_status'];
+
+    $sql = "UPDATE customer SET OrderStatus=? WHERE Email=?";
+    $prepare = $conn->prepare($sql);
+    $result = $prepare->execute([$order_status, $email]);
+
+    header("Location: ../index.php");
+
 }
 
 function alert($string)
