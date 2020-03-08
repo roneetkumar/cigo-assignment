@@ -27,14 +27,6 @@ function insertUser($conn)
 
     header("Location: ../index.php");
 
-    // if ($ordered) {
-    //     header("Location: ../index.html");
-    //     // alert('Order Successful !');
-    // } else {
-    //     alert('Order Failed');
-    //     header("Location: ../index.html");
-    // }
-
 }
 
 function getCustomers($conn)

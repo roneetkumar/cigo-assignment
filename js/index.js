@@ -1,8 +1,6 @@
 const _ = ele => document.querySelector(ele);
 const __ = ele => document.querySelectorAll(ele);
 
-console.log('hello');
-
 const select = __('select[name="order_status"]');
 
 select.forEach(s => {
@@ -25,7 +23,7 @@ select.forEach(s => {
             s.style.color = 'white';
             break;
         case 'cancelled':
-            s.style.backgroundColor = 'red'
+            s.style.backgroundColor = 'tomato'
             s.style.color = 'white';
             break;
         default:

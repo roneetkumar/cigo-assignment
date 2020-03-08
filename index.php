@@ -7,10 +7,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="./js/index.js" defer></script>
         <link rel="stylesheet" href="./css/index.css">
+        <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" data-auto-replace-svg="nest"></script>
     </head>
 
     <body>
@@ -138,7 +140,7 @@
                 </div>
             </form>
         </div>
-        <div class="container row">
+        <div class="container row existing-orders">
 
          <table class="table">
                 <h4>Existing Orders</h4>
@@ -179,16 +181,20 @@
                     </select>
                 </form>
             </td>
-            <td><button>cancel</button></td>
+            <td><i class="fas fa-times-circle btn-cancel"></i></td>
         </tr>
 <?php }?>
 
-</tbody>
+            </tbody>
             </table>
         </div>
     </div>
     <div class="col">
         <div class="container row">
+            <div id="mapid"></div>
+            <form action="controller/main.php" method="post" >
+                <button type="submit" name="getLocation">Location</button>
+            </form>
         </div>
     </div>
 </body>

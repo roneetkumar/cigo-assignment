@@ -14,3 +14,17 @@ body {
 .btns {
     text-align: right;
 }
+
+.btn-cancel {
+    font-size: 30px;
+    color: tomato;
+}
+
+.existing-orders table tbody {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+#mapid {
+    height: 180px;
+}
